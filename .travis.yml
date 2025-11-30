@@ -6,7 +6,7 @@ before_install:
   - docker build -t omripeer/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run omripeer/react-test npm test -- --coverage
+  - docker run -e CI=true omripeer/react-test npm test -- --coverage
 
 after_success:
   - docker build -t omripeer/multi-client ./client
