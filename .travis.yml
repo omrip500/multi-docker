@@ -13,3 +13,11 @@ after_success:
   - docker build -t omripeer/multi-nginx ./nginx
   - docker build -t omripeer/multi-server ./server
   - docker build -t omripeer/multi-worker ./worker
+
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take these images and push them to docker hub
+  - docker push omripeer/multi-client
+  - docker push omripeer/multi-nginx
+  - docker push omripeer/multi-server
+  - docker push omripeer/multi-worker
