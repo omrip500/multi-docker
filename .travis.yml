@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t omripeer/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run omripeer/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t omripeer/multi-client ./client
+  - docker build -t omripeer/multi-nginx ./nginx
+  - docker build -t omripeer/multi-server ./server
+  - docker build -t omripeer/multi-worker ./worker
