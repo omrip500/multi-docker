@@ -3,21 +3,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t omrip500/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t omripeer/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true omrip500/react-test npm test -- --coverage
+  - docker run -e CI=true omripeer/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t omrip500/multi-client ./client
-  - docker build -t omrip500/multi-nginx ./nginx
-  - docker build -t omrip500/multi-server ./server
-  - docker build -t omrip500/multi-worker ./worker
+  - docker build -t omripeer/multi-client ./client
+  - docker build -t omripeer/multi-nginx ./nginx
+  - docker build -t omripeer/multi-server ./server
+  - docker build -t omripeer/multi-worker ./worker
 
   # Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take these images and push them to docker hub
-  - docker push omrip500/multi-client
-  - docker push omrip500/multi-nginx
-  - docker push omrip500/multi-server
-  - docker push omrip500/multi-worker
+  - docker push omripeer/multi-client
+  - docker push omripeer/multi-nginx
+  - docker push omripeer/multi-server
+  - docker push omripeer/multi-worker
